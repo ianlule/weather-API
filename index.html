@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<head>
+    <title>Weather Today!!</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Weather Today!!</h1>
+        <form id="weather-form">
+            <label for="city">Enter City:</label>
+            <input type="text" id="city" name="city" required>
+            <button type="submit" class="submit-button">Get Weather</button>
+        </form>
+
+        <div id="weather-info" class="info-box">
+            <h2>Weather Information</h2>
+            <p>City: <span id="city-name"></span></p>
+            <p>Temperature: <span id="temperature"></span>&deg;C</p>
+            <p>Weather: <span id="weather-description"></span></p>
+        </div>   
+    </div>
+ <script>
+        $(document).ready(function() {
+            $('#weather-form').submit(function(e) {
+                e.preventDefault();
+                var city = $('#city').val();
+                var apiKey = 'd26e2d411965512938fd581ccc7101a7';
+                var weatherApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+                $.get(weatherApiUrl, function(data) {
+                    $('#city-name').text(data.name);
+                    $('#temperature').text(data.main.temp);
+                    $('#weather-description').text(data.weather[0].description);
+
+                    });
+                });
+            });
+           </script>
+</body>
+</html>
